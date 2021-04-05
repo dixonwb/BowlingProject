@@ -1,0 +1,17 @@
+﻿
+@model IEnumerable<Teams>
+
+@*we want home to simply go back to list of all bowlers and not filter by any specific team
+that is why asp-rout-teamnumber is empty*@
+<a asp-action="Index" asp-controller="Home" asp-route-teamnumber="">Home</a><br />
+
+@foreach (var x in Model)
+{
+    //let's use built in bootstrap classes to highlight the team button when selected
+    <a class="btn btn-block @(x.TeamName == ViewBag.TeamName ? "btn-primary" : "btn-outline-secondary")"
+       asp-action="Index" asp-controller="Home" 
+       asp-route-teamnumber="@x.TeamId"
+       asp-route-teamname="@x.TeamName">@x.TeamName</a>
+    <br />
+}
+

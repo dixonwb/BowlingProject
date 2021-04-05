@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    ViewBag.TeamName = Model.TeamName;
+}
+
+@*the model that we are referencing is an IndexViewModel (which stores info about bowlers, page numbering info, and team name)*@
+@model IndexViewModel
+
+@*we want to display the team name as a header at the top of the page when selected*@
+<h3>@Model.TeamName</h3><br />
+
+@*let's display the bowler info in a table*@
+<table class="table-striped" style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%">
+    <tr style="border: 1px solid grey; text-align: left; padding: 8px">
+        <th>Bowler First and Last Name</th>
+        <th>Middle Initial</th>
+        <th>Address</th>
+        <th>Phone</th>
+    </tr>
+    @foreach (var x in Model.Bowlers)
+    {
+        <tr style="border: 1px solid grey; text-align: left; padding: 8px">
+            <td>@(x.BowlerFirstName + " " + x.BowlerLastName)</td>
+            <td>@x.BowlerMiddleInit</td>
+            <td>@(x.BowlerAddress + " | " + x.BowlerCity + ", " + x.BowlerState + " | " + x.BowlerZip)</td>
+            <td>@x.BowlerPhoneNumber</td>
+        </tr>
+    }
+</table><br />
+
+
+@*these tag helpers store important info regarding pagination and regarding which team is selected*@
+<div page-info="@Model.PageNumberingInfo" page-url-teamname="@Model.TeamName"></div>
